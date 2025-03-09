@@ -10,9 +10,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        Scanner sc = new Scanner(System.in);
         boolean mainFlag = false;
-        File menuFile = new File("./");
         String menu = "";
         printAsciiArt();
         printMenu();
@@ -40,14 +38,15 @@ public class Main {
         // 클래스 패스 내부의 리소스만 읽을 경우
         InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("test.txt");
         System.out.println("메뉴 출력");
+        // TODO string -> menuItem클래스로 변경 필요
         List<String> menuList = printMenu(inputStream);
         for (int i = 0; i < menuList.size(); i++) {
             System.out.println((i+1)+"번째 메뉴는 "+menuList.get(i));
         }
         System.out.println("메뉴를 선택해주세요");
-        String s = br.readLine();
+//        String s = br.readLine();
         // 1번부터 입력 -1처리
-        int idx = Integer.parseInt(s)-1;
+//        int idx = Integer.parseInt(s)-1;
 //        System.out.println("선택한 메뉴는 = " + menuList.get(idx));
         while (mainFlag) {
 //            menu = sc.next().charAt(0);
