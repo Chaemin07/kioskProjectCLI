@@ -57,21 +57,9 @@ public class Kiosk {
             // 파일 출력
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             String line;
-            String menuName = "";
-            String price = "";
-            String menuInfo = "";
-            StringTokenizer st;
             // 파일에 저장된 메뉴들 한 줄씩 출력
             while ((line = br.readLine()) != null) {
-                st = new StringTokenizer(line, "|");
-                menuName = st.nextToken().trim();
-                // 현재 price에는 "W ~.~"가 저장됨 쪼개야함
-                price = st.nextToken().trim();
-                StringTokenizer priceTokenizer = new StringTokenizer(price);
-                priceTokenizer.nextToken();
-                price = priceTokenizer.nextToken();
-                menuInfo = st.nextToken().trim();
-                menuList.add(new MenuItem(menuName,price,menuInfo));
+                menuList.add(parseMenuItem(line));
             }
             br.close();
         } else {
@@ -108,10 +96,10 @@ public class Kiosk {
                         System.out.println("다시 입력해주세요!");
                     }
                 }
-
-                System.out.println("메뉴를 확인하겠습니다.");
+                // 1부터 시작이라 -1
                 menuElement = menuList.get(selectMenuNum - 1);
-                System.out.println(selectMenuNum + "번째 메뉴\n음식명: " + menuElement.getName() +
+                System.out.println(selectMenuNum+"번 메뉴를 선택하셨습니다.");
+                System.out.println("음식명: " + menuElement.getName() +
                         ", 가격: " + menuElement.getPrice() + ", 음식 정보: " + menuElement.getMenuInfo());
                 break;
 
@@ -178,6 +166,22 @@ public class Kiosk {
     private String inputMenu() throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         return br.readLine();
+    }
+
+    private MenuItem parseMenuItem(String line) {
+        String menuName = "";
+        String price = "";
+        String menuInfo = "";
+        StringTokenizer st = new StringTokenizer(line, "|");
+        menuName = st.nextToken().trim();
+        // 현재 price에는 "W ~.~"가 저장됨 쪼개야함
+        price = st.nextToken().trim();
+        StringTokenizer priceTokenizer = new StringTokenizer(price);
+        priceTokenizer.nextToken();
+        price = priceTokenizer.nextToken();
+        menuInfo = st.nextToken().trim();
+
+        return new MenuItem(menuName,price,menuInfo);
     }
 
 }
