@@ -1,4 +1,4 @@
-package lv2.kiosk;
+package common;
 
 public class MenuItem {
     // 메뉴는 불변으로

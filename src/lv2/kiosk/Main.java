@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-// 메뉴 enum import
-import common.Menu;
+// 공통 패키지 import
+import common.*;
 
 
 public class Main {
@@ -18,22 +18,25 @@ public class Main {
         int selectMenuNum = 0;
         boolean mainFlag = true;
         boolean menuFlag = true;
-        MenuItem menuElement = null; // NULL 초기화 주의
+        // NULL 초기화 주의
+        MenuItem menuElement = null;
+        List<MenuItem> menuList = new ArrayList<>();
 
         printAsciiArt();
-        InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("common/test.txt");
-        try{
+
+        try(InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("common/test.txt")){
             if (inputStream == null) {
                 System.out.println("파일을 찾을 수 없습니다!");
             } else {
                 System.out.println("공통 파일이 정상적으로 로드되었습니다.");
+                // txtFile → menuList 생성
+                menuList = getMenuListFromFile(inputStream);
             }
 
         }catch(Exception e){
             System.out.println("파일을 찾을 수 없습니다!");
         }
-        // txtFile → menuList 생성
-        List<MenuItem> menuList = getMenuListFromFile(inputStream);
+
 
 //        URL resource = FileTest.class.getClassLoader().getResource("test.txt");
 //        // 파일 없다면 에러
