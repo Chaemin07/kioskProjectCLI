@@ -18,9 +18,7 @@ public class Main {
         int selectMenuNum = 0;
         boolean mainFlag = true;
 
-        // NULL 초기화 주의
         Kiosk kiosk = new Kiosk();
-        List<MenuItem> menuList = new ArrayList<>();
 
         // 키오스크 아스키 아트 출력
         kiosk.printAsciiArt();
