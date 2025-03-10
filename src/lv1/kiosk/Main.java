@@ -8,10 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// 메뉴 enum import
+import common.Menu;
+
+
 public class Main {
     public static void main(String[] args) throws Exception{
         boolean mainFlag = false;
         String menu = "";
+        int selectMenuNum = 0;
         printAsciiArt();
         printMenu();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -49,23 +54,38 @@ public class Main {
 //        int idx = Integer.parseInt(s)-1;
 //        System.out.println("선택한 메뉴는 = " + menuList.get(idx));
         while (mainFlag) {
-//            menu = sc.next().charAt(0);
-            switch (menu){
-                case "1":
-                    break;
-                case "2":
-                    break;
-                case "3":
-                    break;
-                case "4":
-                    break;
-                default:
-                    System.out.println("다시 입력해 주세요!");
-                    break;
-
-            }
+            // 메뉴 보기
             printMenu();
+            selectMenuNum = Integer.parseInt(br.readLine());
 
+            try {
+                // 입력받아
+                Menu selectedMenu = Menu.valueOfCode(selectMenuNum);
+                switch (selectedMenu){
+                    case VIEW_MENU:     // 음식 메뉴 보기
+                        break;
+
+                    case CART:          // 장바구니
+                        break;
+
+                    case CHECKOUT:      // 결제하기
+                        break;
+
+                    case EXIT:          // 종료
+                        break;
+
+                        // try-catch로 switch문 이외의 입력을 잡을텐데
+                        // default가 필요한가?
+                    default:
+                        System.out.println("다시 입력해 주세요!");
+                        break;
+
+                }
+
+            } catch (IllegalArgumentException e) {
+                // 오류 코드
+                System.out.println("잘못된 입력입니다! → "+e.getMessage());
+            }
         }
 
 
