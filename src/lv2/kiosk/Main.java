@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 // 메뉴 enum import
 import common.Menu;
@@ -51,7 +52,7 @@ public class Main {
             System.out.print("입력 >> "); // 입력 유도 메시지
 
             //  입력 정수인지 체크 - 예외처리
-            if (isInteger(menu = br.readLine())) {
+            if (isMenuNumInteger(menu = br.readLine())) {
                 selectMenuNum = Integer.parseInt(menu);
             }else{
                 continue;
@@ -61,15 +62,25 @@ public class Main {
                 Menu selectedMenu = Menu.valueOfCode(selectMenuNum);
                 switch (selectedMenu){
                     case VIEW_MENU:     // 음식 메뉴 보기
-                        InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("test.txt");
+                        InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("common/test.txt");
+                        try{
+                            if (inputStream == null) {
+                                System.out.println("파일을 찾을 수 없습니다!");
+                            } else {
+                                System.out.println("공통 파일이 정상적으로 로드되었습니다.");
+                            }
+
+                        }catch(Exception e){
+                            System.out.println("파일을 찾을 수 없습니다!");
+                        }
+
                         System.out.println("메뉴 출력");
                         // TODO string -> menuItem클래스로 변경 필요
-                        List<String> menuList = getMenuListFromFile(inputStream);
-                        // menuList
-                        for (int i = 0; i < menuList.size(); i++) {
-                            System.out.println((i+1)+"번째 메뉴는 "+menuList.get(i));
-                        }
+                        List<MenuItem> menuList = getMenuListFromFile(inputStream);
+                        // menuList 출력
+                        viewMenuList(menuList);
                         System.out.println("테스트 메뉴를 선택해주세요");
+                        // TODO 사용자 입력 받기
                         break;
 
                     case CART:          // 장바구니
@@ -129,15 +140,30 @@ public class Main {
         System.out.println("4\uFE0F⃣. 종료: \"exit\", \"q\",\"Q\" 입력하기");
     }
     //
-    static List<String> getMenuListFromFile(InputStream inputStream) throws Exception {
+    static List<MenuItem> getMenuListFromFile(InputStream inputStream) throws Exception {
         // Index 0 out of bounds for length 0 인덱스 오류 처리해야함
-        List<String> menuList = new ArrayList<>();
+        List<MenuItem> menuList = new ArrayList<>();
         if (inputStream != null) {
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             String line;
+            String menuName = "";
+            String price = "";
+            String menuInfo = "";
+            StringTokenizer st;
             // 파일에 저장된 메뉴들 한 줄씩 출력
             while ((line = br.readLine()) != null) {
-                menuList.add(line);
+                st = new StringTokenizer(line, "|");
+                menuName = st.nextToken().trim();
+                // 현재 price에는 "W ~.~"가 저장됨 쪼개야함
+                price = st.nextToken().trim();
+                StringTokenizer priceTokenizer = new StringTokenizer(price);
+                priceTokenizer.nextToken();
+                price = priceTokenizer.nextToken();
+                menuInfo = st.nextToken().trim();
+                System.out.println("menuName = " + menuName);
+                System.out.println("price = " + price);
+                System.out.println("menuInfo = "+menuInfo);
+                menuList.add(new MenuItem(menuName,price,menuInfo));
             }
             br.close();
         } else {
@@ -146,7 +172,7 @@ public class Main {
         return menuList;
     }
 
-    static boolean isInteger(String selectMenuNum) {
+    static boolean isMenuNumInteger(String selectMenuNum) {
         try {
             // 정수 + 메뉴번호 ( 1 ~ 4 )
             if((Integer.parseInt(selectMenuNum)<=4) && Integer.parseInt(selectMenuNum)>=1){
@@ -158,6 +184,15 @@ public class Main {
         } catch (Exception e) {
             System.out.println("입력이 올바르지 않습니다!");
             return false;
+        }
+    }
+
+    static void viewMenuList(List<MenuItem> menuList) {
+        MenuItem menu;
+        for (int i = 0; i < menuList.size(); i++) {
+            menu=menuList.get(i);
+            System.out.println((i + 1) + "번째 메뉴\n음식명: " + menu.getName() +
+                    ", 가격: " + menu.getPrice() + ", 음식 정보: " + menu.getMenuInfo());
         }
     }
 

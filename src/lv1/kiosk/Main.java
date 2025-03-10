@@ -41,8 +41,11 @@
 //
 ////        String s = br.readLine();
 //        // 1번부터 입력 -1처리
-////        int idx = Integer.parseInt(s)-1;
-////        System.out.println("선택한 메뉴는 = " + menuList.get(idx));
+
+import java.io.InputStream;
+
+/// /        int idx = Integer.parseInt(s)-1;
+/// /        System.out.println("선택한 메뉴는 = " + menuList.get(idx));
 //        while (mainFlag) {
 //            // 메뉴 보기
 //            printMenu();
@@ -61,7 +64,7 @@
 //                Menu selectedMenu = Menu.valueOfCode(selectMenuNum);
 //                switch (selectedMenu){
 //                    case VIEW_MENU:     // 음식 메뉴 보기
-//                        InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("test.txt");
+//                        InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("common/test.txt");
 //                        System.out.println("메뉴 출력");
 //                        // TODO string -> menuItem클래스로 변경 필요
 //                        List<String> menuList = getMenuListFromFile(inputStream);
