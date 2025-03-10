@@ -13,11 +13,27 @@ import common.Menu;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        boolean mainFlag = true;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String menu = "";
         int selectMenuNum = 0;
+        boolean mainFlag = true;
+        boolean menuFlag = true;
+        MenuItem menuElement = null; // NULL 초기화 주의
+
         printAsciiArt();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("common/test.txt");
+        try{
+            if (inputStream == null) {
+                System.out.println("파일을 찾을 수 없습니다!");
+            } else {
+                System.out.println("공통 파일이 정상적으로 로드되었습니다.");
+            }
+
+        }catch(Exception e){
+            System.out.println("파일을 찾을 수 없습니다!");
+        }
+        // txtFile → menuList 생성
+        List<MenuItem> menuList = getMenuListFromFile(inputStream);
 
 //        URL resource = FileTest.class.getClassLoader().getResource("test.txt");
 //        // 파일 없다면 에러
@@ -58,29 +74,34 @@ public class Main {
                 continue;
             }
             try {
-                // 입력받아
+                // enum으로 맵핑된 값
                 Menu selectedMenu = Menu.valueOfCode(selectMenuNum);
                 switch (selectedMenu){
                     case VIEW_MENU:     // 음식 메뉴 보기
-                        InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("common/test.txt");
-                        try{
-                            if (inputStream == null) {
-                                System.out.println("파일을 찾을 수 없습니다!");
-                            } else {
-                                System.out.println("공통 파일이 정상적으로 로드되었습니다.");
-                            }
-
-                        }catch(Exception e){
-                            System.out.println("파일을 찾을 수 없습니다!");
-                        }
-
-                        System.out.println("메뉴 출력");
-                        // TODO string -> menuItem클래스로 변경 필요
-                        List<MenuItem> menuList = getMenuListFromFile(inputStream);
+                        System.out.println("🟰".repeat(50));
                         // menuList 출력
                         viewMenuList(menuList);
-                        System.out.println("테스트 메뉴를 선택해주세요");
-                        // TODO 사용자 입력 받기
+                        System.out.println("🟰".repeat(50));
+                        // flag 초기화
+                        menuFlag = true;
+                        while(menuFlag){
+                            try {
+                                System.out.println("원하는 메뉴 번호를 입력하세요 ( 1 ~ 4 ):");
+                                System.out.print("입력 >> "); // 입력 유도 메시지
+                                // TODO 메뉴 추가시 유효성 범위 늘려야함 - 현재 4까지
+                                if (isMenuNumInteger(menu = br.readLine())) {
+                                    selectMenuNum = Integer.parseInt(menu);
+                                    menuFlag = false;
+                                }
+                            } catch (Exception e) {
+                                System.out.println("다시 입력해주세요!");
+                            }
+                        }
+                        
+                        System.out.println("메뉴를 확인하겠습니다.");
+                        menuElement = menuList.get(selectMenuNum - 1);
+                        System.out.println(selectMenuNum + "번째 메뉴\n음식명: " + menuElement.getName() +
+                                ", 가격: " + menuElement.getPrice() + ", 음식 정보: " + menuElement.getMenuInfo());
                         break;
 
                     case CART:          // 장바구니
@@ -108,9 +129,7 @@ public class Main {
                 System.out.println("잘못된 입력입니다! → "+e.getMessage());
             }
         }
-
-
-
+        br.close();
     }
     static void printAsciiArt() {
 
@@ -133,11 +152,11 @@ public class Main {
 
     }
     static void printMenu(){
-        System.out.println("🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰🟰");
+        System.out.println("🟰".repeat(50));
         System.out.println("1\uFE0F⃣. 메뉴 보기");
         System.out.println("2\uFE0F⃣. 장바구니");
         System.out.println("3\uFE0F⃣. 결제하기");
-        System.out.println("4\uFE0F⃣. 종료: \"exit\", \"q\",\"Q\" 입력하기");
+        System.out.println("4\uFE0F⃣. 종료하기");
     }
     //
     static List<MenuItem> getMenuListFromFile(InputStream inputStream) throws Exception {
@@ -160,9 +179,6 @@ public class Main {
                 priceTokenizer.nextToken();
                 price = priceTokenizer.nextToken();
                 menuInfo = st.nextToken().trim();
-                System.out.println("menuName = " + menuName);
-                System.out.println("price = " + price);
-                System.out.println("menuInfo = "+menuInfo);
                 menuList.add(new MenuItem(menuName,price,menuInfo));
             }
             br.close();
@@ -188,6 +204,11 @@ public class Main {
     }
 
     static void viewMenuList(List<MenuItem> menuList) {
+        // 유효성 검사
+        if (menuList == null || menuList.isEmpty()) {
+            System.out.println("메뉴 목록이 비어 있습니다.");
+            return;
+        }
         MenuItem menu;
         for (int i = 0; i < menuList.size(); i++) {
             menu=menuList.get(i);
