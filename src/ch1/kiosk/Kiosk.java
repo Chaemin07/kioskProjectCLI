@@ -14,8 +14,11 @@ public class Kiosk {
     boolean kioskMenuFlag = true;
     boolean restaurantMenuFlag = true;
     private IOHandler ioHandler;
-    private String line = "🟰".repeat(50);
+    private String line = "🟰".repeat(57);
 
+    public String[] getAcsiiArtKIOSK() {
+        return ioHandler.getAcsiiArtKIOSK();
+    }
 
     public Kiosk(String[] files) {
         this.ioHandler = new IOHandler();
@@ -37,6 +40,7 @@ public class Kiosk {
 
     }
 
+
     // 메서드
     public List<Menu> getMenuList() {
         return menuList;
@@ -44,21 +48,8 @@ public class Kiosk {
     boolean getmainFlag(){
         return mainFlag;
     }
-    void printAsciiArt() {
-
-        String[] acsiiArt = {"\n" +
-                " __    __  ______   ______    ______   __    __ \n" +
-                "/  |  /  |/      | /      \\  /      \\ /  |  /  |\n" +
-                "$$ | /$$/ $$$$$$/ /$$$$$$  |/$$$$$$  |$$ | /$$/ \n" +
-                "$$ |/$$/    $$ |  $$ |  $$ |$$ \\__$$/ $$ |/$$/  \n" +
-                "$$  $$<     $$ |  $$ |  $$ |$$      \\ $$  $$<   \n" +
-                "$$$$$  \\    $$ |  $$ |  $$ | $$$$$$  |$$$$$  \\  \n" +
-                "$$ |$$  \\  _$$ |_ $$ \\__$$ |/  \\__$$ |$$ |$$  \\ \n" +
-                "$$ | $$  |/ $$   |$$    $$/ $$    $$/ $$ | $$  |\n" +
-                "$$/   $$/ $$$$$$/  $$$$$$/   $$$$$$/  $$/   $$/ \n" +
-                "                                                \n"
-        };
-        for (String data : acsiiArt) {
+    void printAsciiArt(String[] asciiArt) {
+        for (String data : asciiArt) {
             System.out.println(data);
         }
     }
@@ -92,7 +83,7 @@ public class Kiosk {
                     int idx = 0;
                     switch(restCategory){
                         case HAMBURGER:     // 햄버거 메뉴 보기
-                            System.out.println("햄버거 메뉴를 선택하셨습니다.");
+                            printAsciiArt(ioHandler.getAsciiArtHAMBURGER());
                             System.out.println(line);
                             Menu Hamburger = menuList.get(HAMBURGER.getCode()-1);
 
@@ -102,7 +93,7 @@ public class Kiosk {
                             break;
 
                         case DRINK:         // 드링크 메뉴 보기:
-                            System.out.println("드링크 메뉴를 선택하셨습니다.");
+                            printAsciiArt(ioHandler.getAsciiArtDRINK());
                             System.out.println(line);
                             Menu Drink = menuList.get(DRINK.getCode()-1);
 
@@ -112,7 +103,7 @@ public class Kiosk {
                             break;
 
                         case DESSERT:       // 디저트 메뉴 보기:
-                            System.out.println("디저트 메뉴를 선택하셨습니다.");
+                            printAsciiArt(ioHandler.getAsciiArtDESSERT());
                             System.out.println(line);
                             Menu Dessert = menuList.get(DESSERT.getCode()-1);
 
@@ -121,7 +112,7 @@ public class Kiosk {
                             restaurantMenuFlag=false;
                             break;
                         case BACK:          // 뒤로가기
-                            System.out.println("뒤로가기를 선택하셨습니다.");
+                            printAsciiArt(ioHandler.getAsciiArtBACK());
                             restaurantMenuFlag=false;
                             break;
                         default:
@@ -131,7 +122,7 @@ public class Kiosk {
                 }
                 break;
 
-            case CART:          // 장바구니
+            case VIEW_CART:          // 장바구니
                 System.out.println("테스트 장바구니 입니다.");
                 break;
 

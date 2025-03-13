@@ -1,4 +1,4 @@
-
+package lv4.kiosk;
 
 import common.*;
 
@@ -132,7 +132,7 @@ public class Kiosk {
                 }
                 break;
 
-            case CART:          // 장바구니
+            case VIEW_CART:          // 장바구니
                 System.out.println("테스트 장바구니 입니다.");
                 break;
 

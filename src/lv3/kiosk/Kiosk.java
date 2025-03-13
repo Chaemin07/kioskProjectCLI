@@ -104,7 +104,7 @@ public class Kiosk {
                         ", 가격: " + menuElement.getPrice() + ", 음식 정보: " + menuElement.getMenuInfo());
                 break;
 
-            case CART:          // 장바구니
+            case VIEW_CART:          // 장바구니
                 System.out.println("테스트 장바구니 입니다.");
                 break;
 

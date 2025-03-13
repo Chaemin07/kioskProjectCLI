@@ -2,7 +2,7 @@ package common;
 
 public enum KioskMenu {
     VIEW_MENU("메뉴 보기", 1),
-    CART("장바구니", 2),
+    VIEW_CART("장바구니 보기", 2),
     CHECKOUT("결제하기", 3),
     EXIT("종료", 4);
 
