@@ -70,12 +70,12 @@ public class Kiosk {
     // Main에서 호출 default
     void start(int selectMenuNum){
         // enum으로 맵핑된 값
-        Menu selectedMenu = Menu.valueOfCode(selectMenuNum);
+        KioskMenu selectedKioskMenu = KioskMenu.valueOfCode(selectMenuNum);
         // 초기화
         MenuItem menuElement = null;
         String menu = "";
 
-        switch (selectedMenu){
+        switch (selectedKioskMenu){
             case VIEW_MENU:     // 음식 메뉴 보기
                 System.out.println("🟰".repeat(50));
                 // menuList 출력

@@ -41,7 +41,7 @@ public class Kiosk {
             System.out.println(data);
         }
     }
-    void printMenu() {
+    void printKioskMenu() {
         System.out.println("🟰".repeat(50));
         System.out.println("1\uFE0F⃣. 메뉴 보기");
         System.out.println("2\uFE0F⃣. 장바구니");
@@ -70,12 +70,12 @@ public class Kiosk {
     // Main에서 호출 default
     void start(int selectMenuNum){
         // enum으로 맵핑된 값
-        Menu selectedMenu = Menu.valueOfCode(selectMenuNum);
+        KioskMenu selectedKioskMenu = KioskMenu.valueOfCode(selectMenuNum);
         // 초기화
         MenuItem menuElement = null;
         String menu = "";
 
-        switch (selectedMenu){
+        switch (selectedKioskMenu){
             case VIEW_MENU:     // 음식 메뉴 보기
                 System.out.println("🟰".repeat(50));
                 // menuList 출력
@@ -167,7 +167,6 @@ public class Kiosk {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         return br.readLine();
     }
-
     private MenuItem parseMenuItem(String line) {
         String menuName = "";
         String price = "";
@@ -181,7 +180,9 @@ public class Kiosk {
         price = priceTokenizer.nextToken();
         menuInfo = st.nextToken().trim();
 
+        // 카테고리 추가
         return new MenuItem(menuName,price,menuInfo);
     }
+
 
 }

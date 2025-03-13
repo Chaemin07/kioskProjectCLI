@@ -38,9 +38,9 @@ public class Main {
         }
         while (mainFlag) {
             // 메뉴 보기
-            kiosk.printMenu();
+            kiosk.printKioskMenu();
             // 설명 출력
-            System.out.println("원하는 메뉴 번호를 입력하세요 (1~3, 종료는 4):");
+            System.out.println("원하는 키오스크 메뉴 번호를 입력하세요 (1~3, 종료는 4):");
             System.out.print("입력 >> "); // 입력 유도 메시지
             //  입력 →  정수인지 체크 - 예외처리
             if (isMenuNumInteger(menu = br.readLine())) {

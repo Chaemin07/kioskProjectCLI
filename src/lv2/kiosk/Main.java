@@ -78,8 +78,8 @@ public class Main {
             }
             try {
                 // enum으로 맵핑된 값
-                Menu selectedMenu = Menu.valueOfCode(selectMenuNum);
-                switch (selectedMenu){
+                KioskMenu selectedKioskMenu = KioskMenu.valueOfCode(selectMenuNum);
+                switch (selectedKioskMenu){
                     case VIEW_MENU:     // 음식 메뉴 보기
                         System.out.println("🟰".repeat(50));
                         // menuList 출력
