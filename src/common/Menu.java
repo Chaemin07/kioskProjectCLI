@@ -1,33 +1,22 @@
 package common;
 
-public enum Menu {
-    VIEW_MENU("메뉴 보기", 1),
-    CART("장바구니", 2),
-    CHECKOUT("결제하기", 3),
-    EXIT("종료", 4);
+import java.util.List;
 
-    private final String description;
-    private final int code;
+public class Menu {
 
-    Menu(String description, int code) {
-        this.description = description; // enum메뉴 설명
-        this.code = code;               // enum메뉴 번호
+    private MenuCategory category;
+    private List<MenuItem> menuItem;
+
+    public Menu(MenuCategory category, List<MenuItem> menuItem) {
+        this.category = category;
+        this.menuItem = menuItem;
     }
 
-    public String getDescription() {
-        return description;
+    public MenuCategory getCategory() {
+        return category;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public static Menu valueOfCode(int code) {
-        for (Menu menu : Menu.values()) {
-            if (menu.getCode() == code) {
-                return menu;
-            }
-        }
-        throw new IllegalArgumentException("잘못된 코드입니다! → " + code);
+    public List<MenuItem> getMenuItem() {
+        return menuItem;
     }
 }

@@ -1,0 +1,5 @@
+Chocolate Shake   | W 4.9 | 진한 초콜릿 맛의 쉐이크
+Vanilla Ice Cream | W 3.9 | 부드럽고 고소한 바닐라 아이스크림
+Strawberry Tart   | W 5.5 | 신선한 딸기와 크림이 어우러진 타르트
+Cheesecake        | W 6.5 | 크리미한 치즈케이크 한 조각
+Brownie           | W 4.2 | 촉촉한 초콜릿 브라우니
