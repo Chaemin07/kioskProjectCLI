@@ -198,6 +198,6 @@ public class Kiosk {
         // 메뉴 고르기
         int idx = ioHandler.inputInt(prompt, menuCategory.getMenuItem().size())-1;
         // 선택한 메뉴 출력
-        printRestaurantMenu(menuCategory.getMenuItem().get(idx), idx);
+        printRestaurantMenu(menuCategory.getMenuItem().get(idx), idx+1);
     }
 }

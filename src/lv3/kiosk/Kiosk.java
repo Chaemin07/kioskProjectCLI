@@ -1,5 +1,6 @@
 package lv3.kiosk;
-import common.*;
+import common.KioskMenu;
+import common.MenuItem;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

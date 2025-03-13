@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 // 공통 패키지 import
-import common.*;
+import common.KioskMenu;
+import common.MenuItem;
 
 
 public class Main {

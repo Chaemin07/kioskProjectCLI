@@ -5,8 +5,9 @@ import common.IOHandler;
 public class Main {
     public static void main(String[] args) throws Exception{
         IOHandler ioHandler = new IOHandler();
-        String[] files = {"common/hamburgerMenu.txt",
-                "common/drinkMenu.txt","common/dessertMenu.txt"};
+        String[] files = {"resources/hamburgerMenu.txt",
+                "resources/drinkMenu.txt",
+                "resources/dessertMenu.txt"};
         String prompt = "원하는 메뉴 번호를 입력하세요:\n입력 >> ";
 
         int selectMenuNum = 0;
