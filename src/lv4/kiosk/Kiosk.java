@@ -1,23 +1,44 @@
 package lv4.kiosk;
 import common.*;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
+
+import static common.MenuCategory.*;
 
 public class Kiosk {
     // 속성
-    private List<MenuItem> menuList;
+    private List<Menu> menuList;
     boolean mainFlag = true;
-    boolean menuFlag = true;
+    boolean kioskMenuFlag = true;
+    boolean restaurantMenuFlag = true;
+    private IOHandler ioHandler;
+    private String line = "🟰".repeat(50);
 
 
+    public Kiosk(String[] files) {
+        this.ioHandler = new IOHandler();
+        FileIOHandler fileIOHandler = new FileIOHandler();
+        List<Menu> menuList = new ArrayList<>();
+        MenuCategory category = null;
+        for (String file : files) {
+            if (file.contains("hamburger")) {
+                category = HAMBURGER;
+            } else if (file.contains("drink")) {
+                category = DRINK;
+            }else if (file.contains("dessert")) {
+                category = MenuCategory.DESSERT;
+            }
+            List<MenuItem> loadedMenuList = fileIOHandler.loadMenuList(file);
+            menuList.add(new Menu(category,loadedMenuList));
+        }
+        this.menuList = menuList;
+
+    }
 
     // 메서드
-    public List<MenuItem> getMenuList() {
+    public List<Menu> getMenuList() {
         return menuList;
     }
     boolean getmainFlag(){
@@ -42,65 +63,72 @@ public class Kiosk {
         }
     }
     void printKioskMenu() {
-        System.out.println("🟰".repeat(50));
+        System.out.println(line);
         System.out.println("1\uFE0F⃣. 메뉴 보기");
         System.out.println("2\uFE0F⃣. 장바구니");
         System.out.println("3\uFE0F⃣. 결제하기");
         System.out.println("4\uFE0F⃣. 종료하기");
     }
 
-    // Main에서 호출 default
-    void getMenuListFromFile(InputStream inputStream) throws Exception {
 
-        this.menuList = new ArrayList<>();
-        if (inputStream != null) {
-            // 파일 출력
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-            // 파일에 저장된 메뉴들 한 줄씩 출력
-            while ((line = br.readLine()) != null) {
-                menuList.add(parseMenuItem(line));
-            }
-            br.close();
-        } else {
-            System.out.println("파일 없음");
-        }
-    }
 
     // Main에서 호출 default
-    void start(int selectMenuNum){
+    void start(int selectMenuNum) throws Exception {
         // enum으로 맵핑된 값
-        KioskMenu selectedKioskMenu = KioskMenu.valueOfCode(selectMenuNum);
-        // 초기화
-        MenuItem menuElement = null;
-        String menu = "";
+        KioskMenu selectedKioskMenuNum = KioskMenu.valueOfCode(selectMenuNum);
+        String prompt = "원하는 메뉴 번호를 입력하세요:\n입력 >> ";
 
-        switch (selectedKioskMenu){
-            case VIEW_MENU:     // 음식 메뉴 보기
-                System.out.println("🟰".repeat(50));
-                // menuList 출력
-                viewMenuList();
-                System.out.println("🟰".repeat(50));
-                // menuFlag 초기화
-                menuFlag = true;
-                while(menuFlag){
-                    try {
-                        System.out.println("원하는 메뉴 번호를 입력하세요 ( 1 ~ 4 ):");
-                        System.out.print("입력 >> "); // 입력 유도 메시지
-                        // TODO 메뉴 추가시 유효성 범위 늘려야함 - 현재 4까지
-                        if (isMenuNumInteger(menu = inputMenu())) {
-                            selectMenuNum = Integer.parseInt(menu);
-                            menuFlag = false;
-                        }
-                    } catch (Exception e) {
-                        System.out.println("다시 입력해주세요!");
+        switch (selectedKioskMenuNum){
+            case VIEW_MENU:     // 음식 메뉴 보기:
+                // 음식 카테고리 출력
+                viewRestaurantMenuList();
+                System.out.println(line);
+                // 사용자 입력 - 카테고리 선택
+                selectMenuNum = ioHandler.inputInt(prompt, 4);
+                // enum으로 맵핑된 값
+                MenuCategory restCategory= MenuCategory.valueOfCode(selectMenuNum);
+                restaurantMenuFlag=true;
+                while(restaurantMenuFlag){
+                    int idx = 0;
+                    switch(restCategory){
+                        case HAMBURGER:     // 햄버거 메뉴 보기
+                            System.out.println("햄버거 메뉴를 선택하셨습니다.");
+                            System.out.println(line);
+                            Menu Hamburger = menuList.get(HAMBURGER.getCode()-1);
+
+                            // 메뉴 보기, 메뉴 선택하기, 선택한 메뉴 출력
+                            selectAndShowFoodMenuItem(Hamburger, prompt);
+                            restaurantMenuFlag=false;
+                            break;
+
+                        case DRINK:         // 드링크 메뉴 보기:
+                            System.out.println("드링크 메뉴를 선택하셨습니다.");
+                            System.out.println(line);
+                            Menu Drink = menuList.get(DRINK.getCode()-1);
+
+                            // 메뉴 보기, 메뉴 선택하기, 선택한 메뉴 출력
+                            selectAndShowFoodMenuItem(Drink, prompt);
+                            restaurantMenuFlag=false;
+                            break;
+
+                        case DESSERT:       // 디저트 메뉴 보기:
+                            System.out.println("디저트 메뉴를 선택하셨습니다.");
+                            System.out.println(line);
+                            Menu Dessert = menuList.get(DESSERT.getCode()-1);
+
+                            // 메뉴 보기, 메뉴 선택하기, 선택한 메뉴 출력
+                            selectAndShowFoodMenuItem(Dessert, prompt);
+                            restaurantMenuFlag=false;
+                            break;
+                        case BACK:          // 뒤로가기
+                            System.out.println("뒤로가기를 선택하셨습니다.");
+                            restaurantMenuFlag=false;
+                            break;
+                        default:
+                            System.out.println("입력이 올바르지 않습니다!");
+                            break;
                     }
                 }
-                // 1부터 시작이라 -1
-                menuElement = menuList.get(selectMenuNum - 1);
-                System.out.println(selectMenuNum+"번 메뉴를 선택하셨습니다.");
-                System.out.println("음식명: " + menuElement.getName() +
-                        ", 가격: " + menuElement.getPrice() + ", 음식 정보: " + menuElement.getMenuInfo());
                 break;
 
             case CART:          // 장바구니
@@ -126,36 +154,16 @@ public class Kiosk {
     }
 
     // 음식 메뉴 출력
-    private void viewMenuList() {
-        MenuItem menu;
-        // 유효성 검사
-        if(isValidMenuList())
-        {
-            for (int i = 0; i < menuList.size(); i++) {
-                menu = menuList.get(i);
-                System.out.println((i + 1) + "번째 메뉴\n음식명: " + menu.getName() +
-                        ", 가격: " + menu.getPrice() + ", 음식 정보: " + menu.getMenuInfo());
-            }
-        }
+    private void viewRestaurantMenuList() {
+        System.out.println(line);
+        System.out.println("1\uFE0F⃣. 햄버거 메뉴");
+        System.out.println("2\uFE0F⃣. 드링크 메뉴");
+        System.out.println("3\uFE0F⃣. 디저트 메뉴");
+        System.out.println("4\uFE0F⃣. 뒤로가기");
+
     }
 
-    // 메뉴 번호 유효성 검사
-    private boolean isMenuNumInteger(String selectMenuNum) {
-        try {
-            // 정수 + 메뉴번호 ( 1 ~ 4 )
-            if((Integer.parseInt(selectMenuNum)<=4) && Integer.parseInt(selectMenuNum)>=1){
-                return true;
-            }else{
-                System.out.println("입력이 올바르지 않습니다!");
-                return false;
-            }
-        } catch (Exception e) {
-            System.out.println("입력이 올바르지 않습니다!");
-            return false;
-        }
-    }
-
-    // 유효성 검사
+    // 메뉴(Menu클래스) 유효성 검사
     private boolean isValidMenuList() {
         if (menuList == null || menuList.isEmpty()) {
             System.out.println("메뉴 목록이 비어 있습니다.");
@@ -163,26 +171,33 @@ public class Kiosk {
         }
         return true;
     }
-    private String inputMenu() throws Exception{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        return br.readLine();
+    //  카테고리 음식 - 전부 출력
+    private void viewRestaurantMenu(Menu menuList){
+        if (isValidMenuList()) {
+            MenuItem menu;
+            for (int i = 0; i < menuList.getMenuItem().size(); i++) {
+                menu = menuList.getMenuItem().get(i);
+                System.out.println((i + 1) + "번째 메뉴\n음식명: " + menu.getName() +
+                        ", 가격: " + menu.getPrice() + ", 음식 정보: " + menu.getMenuInfo());
+            }
+        }
     }
-    private MenuItem parseMenuItem(String line) {
-        String menuName = "";
-        String price = "";
-        String menuInfo = "";
-        StringTokenizer st = new StringTokenizer(line, "|");
-        menuName = st.nextToken().trim();
-        // 현재 price에는 "W ~.~"가 저장됨 쪼개야함
-        price = st.nextToken().trim();
-        StringTokenizer priceTokenizer = new StringTokenizer(price);
-        priceTokenizer.nextToken();
-        price = priceTokenizer.nextToken();
-        menuInfo = st.nextToken().trim();
-
-        // 카테고리 추가
-        return new MenuItem(menuName,price,menuInfo);
+    
+    // 음식 메뉴(MenuItem menuElement) 출력
+    private void printRestaurantMenu(MenuItem menuElement,int idx) {
+        System.out.println(idx+"번 메뉴를 선택하셨습니다.");
+        System.out.println("음식명: " + menuElement.getName() +
+                ", 가격: " + menuElement.getPrice() + ", 음식 정보: " + menuElement.getMenuInfo());
     }
 
-
+    // 메뉴 보기, 메뉴 선택하기, 선택한 메뉴 출력
+    private void selectAndShowFoodMenuItem(Menu menuCategory,String prompt) throws IOException {
+        // 메뉴 보기
+        viewRestaurantMenu(menuCategory);
+        System.out.println(line);
+        // 메뉴 고르기
+        int idx = ioHandler.inputInt(prompt, menuCategory.getMenuItem().size())-1;
+        // 선택한 메뉴 출력
+        printRestaurantMenu(menuCategory.getMenuItem().get(idx), idx);
+    }
 }
