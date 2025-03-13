@@ -3,6 +3,7 @@ package common;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Locale;
 
 public class IOHandler {
     private BufferedReader br;
@@ -47,6 +48,17 @@ public class IOHandler {
             "$$ |__$$ |$$ |_____ /  \\__$$ |/  \\__$$ |$$ |_____ $$ |  $$ |   $$ |   \n" +
             "$$    $$/ $$       |$$    $$/ $$    $$/ $$       |$$ |  $$ |   $$ |   \n" +
             "$$$$$$$/  $$$$$$$$/  $$$$$$/   $$$$$$/  $$$$$$$$/ $$/   $$/    $$/    "};
+    private final String[] asciiArtCART = {"\n" +
+            "  ______    ______   _______   ________ \n" +
+            " /      \\  /      \\ /       \\ /        |\n" +
+            "/$$$$$$  |/$$$$$$  |$$$$$$$  |$$$$$$$$/ \n" +
+            "$$ |  $$/ $$ |__$$ |$$ |__$$ |   $$ |   \n" +
+            "$$ |      $$    $$ |$$    $$<    $$ |   \n" +
+            "$$ |   __ $$$$$$$$ |$$$$$$$  |   $$ |   \n" +
+            "$$ \\__/  |$$ |  $$ |$$ |  $$ |   $$ |   \n" +
+            "$$    $$/ $$ |  $$ |$$ |  $$ |   $$ |   \n" +
+            " $$$$$$/  $$/   $$/ $$/   $$/    $$/    "};
+
     private final String[] asciiArtBACK = {"\n" +
             " _______    ______    ______   __    __ \n" +
             "/       \\  /      \\  /      \\ /  |  /  |\n" +
@@ -72,6 +84,10 @@ public class IOHandler {
 
     public String[] getAsciiArtDESSERT() {
         return asciiArtDESSERT;
+    }
+
+    public String[] getAsciiArtCART() {
+        return asciiArtCART;
     }
 
     public String[] getAsciiArtBACK() {
@@ -121,4 +137,17 @@ public class IOHandler {
         br.close();
     }
 
+    public String isValidAnswer(String prompt) throws IOException{
+        while(true){
+            try {
+                String answer = inputString(prompt).toUpperCase();
+                if (answer.equals("Y") || answer.equals("N")) {
+                    return answer;
+                }
+                System.out.println("입력이 올바르지 않습니다! 다시 입력해주세요!");
+            } catch (Exception e) {
+                System.out.println("입력이 올바르지 않습니다! 다시 입력해주세요!");
+            }
+        }
+    }
 }
