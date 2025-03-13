@@ -64,7 +64,7 @@ import java.io.InputStream;
 //                Menu selectedMenu = Menu.valueOfCode(selectMenuNum);
 //                switch (selectedMenu){
 //                    case VIEW_MENU:     // 음식 메뉴 보기
-//                        InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("common/test.txt");
+//                        InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("resources.common/test.txt");
 //                        System.out.println("메뉴 출력");
 //                        // TODO string -> menuItem클래스로 변경 필요
 //                        List<String> menuList = getMenuListFromFile(inputStream);

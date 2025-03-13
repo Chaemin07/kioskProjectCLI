@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 // 공통 패키지 import
-import common.*;
+import common.KioskMenu;
+import common.MenuItem;
 
 
 public class Main {
@@ -107,7 +108,7 @@ public class Main {
                                 ", 가격: " + menuElement.getPrice() + ", 음식 정보: " + menuElement.getMenuInfo());
                         break;
 
-                    case CART:          // 장바구니
+                    case VIEW_CART:          // 장바구니
                         System.out.println("테스트 장바구니 입니다.");
                         break;
 

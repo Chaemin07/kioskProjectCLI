@@ -1,4 +1,4 @@
-package lv4.kiosk;
+package ch1.kiosk;
 
 import common.IOHandler;
 
@@ -16,7 +16,7 @@ public class Main {
         Kiosk kiosk = new Kiosk(files);
 
         // 키오스크 아스키 아트 출력
-        kiosk.printAsciiArt();
+        kiosk.printAsciiArt(kiosk.getAcsiiArtKIOSK());
 
 
         while (mainFlag) {
