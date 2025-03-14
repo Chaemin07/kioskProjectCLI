@@ -145,7 +145,7 @@ public class IOHandler {
             }
         }
     }
-
+    // 정수 유효성 검사
     boolean isValidInteger(String selectedMenuNum,int Max) {
         try {
             // 정수 + 메뉴번호 (1 ~ listSize)
@@ -161,9 +161,7 @@ public class IOHandler {
         }
     }
 
-    public void close() throws IOException{
-        br.close();
-    }
+
 
     public String isValidAnswer(String prompt) throws IOException{
         while(true){
@@ -188,5 +186,8 @@ public class IOHandler {
                 System.out.println("입력이 올바르지 않습니다! 다시 입력해주세요!");
             }
         }
+    }
+    public void close() throws IOException{
+        br.close();
     }
 }

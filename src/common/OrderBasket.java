@@ -19,6 +19,14 @@ public class OrderBasket {
         }
     }
 
+    private void setMenuBasket() {
+        this.menuBasket = new HashMap<>();
+        totalSum=0;
+        for (MenuCategory category : MenuCategory.values()) {
+            menuBasket.put(category, new ArrayList<>()); // 초기화
+        }
+    }
+
     //  장바구니에 메뉴 추가
     public void addItem(MenuCategory category, MenuItem item) {
         menuBasket.get(category).add(item);
@@ -67,6 +75,7 @@ public class OrderBasket {
     // 장바구니 비우기
     public void clearBasket() {
         menuBasket.clear();
+        setMenuBasket();
     }
     // 카테고리별 장바구니보기
     public void viewBasketByCategory(){

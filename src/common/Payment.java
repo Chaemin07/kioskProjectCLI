@@ -23,6 +23,7 @@ public class Payment {
             String paymentMethod = (choice == 1) ? "현금" : "카드";
             if (handlePaymentTransaction(paymentMethod,totalAmount)) {
                 // 결제 성공
+                System.out.println("결제가 완료되었습니다.");
                 orderBasket.clearBasket();
                 return true;
             }
