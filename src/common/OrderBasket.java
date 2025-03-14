@@ -63,6 +63,11 @@ public class OrderBasket {
         }
         return removeItem;
     }
+
+    // 장바구니 비우기
+    public void clearBasket() {
+        menuBasket.clear();
+    }
     // 카테고리별 장바구니보기
     public void viewBasketByCategory(){
         int cnt=0;
