@@ -171,8 +171,8 @@ public class Kiosk {
                 }
                 break;
 
-            case CHECKOUT:      // 결제하기
-                prompt = "결제 하시겠습니까? (y or n)\n>> ";
+            case CHECKOUT:      // 결제하기, 주문하기
+                prompt = "주문 하시겠습니까? (y or n)\n>> ";
                 printAsciiArt(ioHandler.getAsciiArtCHECKOUT());
                 String answer = ioHandler.isValidAnswer(prompt);
                 try{
