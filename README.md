@@ -51,7 +51,7 @@
 - Java 버전: JDK 17
 ---
 ## 실행 예시 화면
-![키오스크 실행 예시](https://github.com/Chaemin07/kioskProjectCLI/issues/4#issue-2918866737)
+![키오스크 실행 예시](https://github.com/user-attachments/assets/172b7e64-ede7-4121-9df6-4f99a555dcb6)
 
 ---
 
