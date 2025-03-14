@@ -12,13 +12,14 @@ import static common.MenuCategory.*;
 public class Kiosk {
     // 속성
     private List<Menu> menuList;
+    private final IOHandler ioHandler;
+    private OrderBasket orderBasket;
+    private Payment payment;
+
     boolean mainFlag = true;
-    boolean kioskMenuFlag = true;
     private boolean restaurantMenuFlag = true;
     private boolean cartFlag =true;
-    private IOHandler ioHandler;
     private String line = "🟰".repeat(57);
-    private OrderBasket orderBasket;
     private String prompt = "";
 
     public String[] getAcsiiArtKIOSK() {
@@ -30,6 +31,8 @@ public class Kiosk {
         FileIOHandler fileIOHandler = new FileIOHandler();
         menuList = new ArrayList<>();
         orderBasket = new OrderBasket();
+        payment = new Payment(ioHandler);
+        // null 초기화
         MenuCategory category = null;
         for (String file : files) {
             if (file.contains("hamburger")) {
@@ -62,10 +65,10 @@ public class Kiosk {
 
     void printKioskMenu() {
         System.out.println(line);
-        System.out.println("1\uFE0F⃣. 메뉴 보기");
-        System.out.println("2\uFE0F⃣. 장바구니");
-        System.out.println("3\uFE0F⃣. 결제하기");
-        System.out.println("4\uFE0F⃣. 종료하기");
+        System.out.println("1\uFE0F⃣. \uD83C\uDF7D\uFE0F 메뉴 보기");
+        System.out.println("2\uFE0F⃣. 🧺 장바구니");
+        System.out.println("3\uFE0F⃣. \uD83D\uDCB3 결제하기");
+        System.out.println("4\uFE0F⃣. \uD83D\uDD1A 종료하기");
     }
 
 
@@ -169,7 +172,20 @@ public class Kiosk {
                 break;
 
             case CHECKOUT:      // 결제하기
-                System.out.println("테스트 결제 화면입니다.");
+                prompt = "결제 하시겠습니까? (y or n)\n>> ";
+                printAsciiArt(ioHandler.getAsciiArtCHECKOUT());
+                String answer = ioHandler.isValidAnswer(prompt);
+                try{
+                    if (answer.equalsIgnoreCase("y")) {
+                        payment.startPaymentProcess(orderBasket);
+                        printAsciiArt(ioHandler.getAsciiArtMessage());
+                    } else if (answer.equalsIgnoreCase("n")) {
+                        System.out.println("뒤로 돌아갑니다.");
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("오류가 발생했습니다!" + e.getMessage());
+                }
                 break;
 
             case EXIT:          // 종료
@@ -189,9 +205,9 @@ public class Kiosk {
     // 음식 메뉴 출력
     private void viewRestaurantMenuList() {
         System.out.println(line);
-        System.out.println("1\uFE0F⃣. 햄버거 메뉴");
-        System.out.println("2\uFE0F⃣. 드링크 메뉴");
-        System.out.println("3\uFE0F⃣. 디저트 메뉴");
+        System.out.println("1\uFE0F⃣. \uD83C\uDF54 햄버거 메뉴");
+        System.out.println("2\uFE0F⃣. 🍹 드링크 메뉴");
+        System.out.println("3\uFE0F⃣. 🍮 디저트 메뉴");
         System.out.println("4\uFE0F⃣. 뒤로가기");
 
     }

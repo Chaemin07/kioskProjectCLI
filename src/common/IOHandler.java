@@ -8,7 +8,7 @@ import java.util.Locale;
 public class IOHandler {
     private BufferedReader br;
 
-    private final String[] acsiiArtKIOSK = {"\n" +
+    private final String[] acsiiArtKIOSK = {"" +
             " __    __  ______   ______    ______   __    __ \n" +
             "/  |  /  |/      | /      \\  /      \\ /  |  /  |\n" +
             "$$ | /$$/ $$$$$$/ /$$$$$$  |/$$$$$$  |$$ | /$$/ \n" +
@@ -18,7 +18,8 @@ public class IOHandler {
             "$$ |$$  \\  _$$ |_ $$ \\__$$ |/  \\__$$ |$$ |$$  \\ \n" +
             "$$ | $$  |/ $$   |$$    $$/ $$    $$/ $$ | $$  |\n" +
             "$$/   $$/ $$$$$$/  $$$$$$/   $$$$$$/  $$/   $$/ "};
-    private final String[] asciiArtHAMBURGER = {"\n" +
+
+    private final String[] asciiArtHAMBURGER = {"" +
             " __    __   ______   __       __  _______   __    __  _______    ______   ________  _______  \n" +
             "/  |  /  | /      \\ /  \\     /  |/       \\ /  |  /  |/       \\  /      \\ /        |/       \\ \n" +
             "$$ |  $$ |/$$$$$$  |$$  \\   /$$ |$$$$$$$  |$$ |  $$ |$$$$$$$  |/$$$$$$  |$$$$$$$$/ $$$$$$$  |\n" +
@@ -28,7 +29,7 @@ public class IOHandler {
             "$$ |  $$ |$$ |  $$ |$$ |$$$/ $$ |$$ |__$$ |$$ \\__$$ |$$ |  $$ |$$ \\__$$ |$$ |_____ $$ |  $$ |\n" +
             "$$ |  $$ |$$ |  $$ |$$ | $/  $$ |$$    $$/ $$    $$/ $$ |  $$ |$$    $$/ $$       |$$ |  $$ |\n" +
             "$$/   $$/ $$/   $$/ $$/      $$/ $$$$$$$/   $$$$$$/  $$/   $$/  $$$$$$/  $$$$$$$$/ $$/   $$/ "};
-    private final String[] asciiArtDRINK={"\n" +
+    private final String[] asciiArtDRINK={"" +
             " _______   _______   ______  __    __  __    __ \n" +
             "/       \\ /       \\ /      |/  \\  /  |/  |  /  |\n" +
             "$$$$$$$  |$$$$$$$  |$$$$$$/ $$  \\ $$ |$$ | /$$/ \n" +
@@ -38,7 +39,7 @@ public class IOHandler {
             "$$ |__$$ |$$ |  $$ | _$$ |_ $$ |$$$$ |$$ |$$  \\ \n" +
             "$$    $$/ $$ |  $$ |/ $$   |$$ | $$$ |$$ | $$  |\n" +
             "$$$$$$$/  $$/   $$/ $$$$$$/ $$/   $$/ $$/   $$/ "};
-    private final String[] asciiArtDESSERT={"\n" +
+    private final String[] asciiArtDESSERT={"" +
             " _______   ________   ______    ______   ________  _______   ________ \n" +
             "/       \\ /        | /      \\  /      \\ /        |/       \\ /        |\n" +
             "$$$$$$$  |$$$$$$$$/ /$$$$$$  |/$$$$$$  |$$$$$$$$/ $$$$$$$  |$$$$$$$$/ \n" +
@@ -48,7 +49,7 @@ public class IOHandler {
             "$$ |__$$ |$$ |_____ /  \\__$$ |/  \\__$$ |$$ |_____ $$ |  $$ |   $$ |   \n" +
             "$$    $$/ $$       |$$    $$/ $$    $$/ $$       |$$ |  $$ |   $$ |   \n" +
             "$$$$$$$/  $$$$$$$$/  $$$$$$/   $$$$$$/  $$$$$$$$/ $$/   $$/    $$/    "};
-    private final String[] asciiArtCART = {"\n" +
+    private final String[] asciiArtCART = {"" +
             "  ______    ______   _______   ________ \n" +
             " /      \\  /      \\ /       \\ /        |\n" +
             "/$$$$$$  |/$$$$$$  |$$$$$$$  |$$$$$$$$/ \n" +
@@ -58,8 +59,27 @@ public class IOHandler {
             "$$ \\__/  |$$ |  $$ |$$ |  $$ |   $$ |   \n" +
             "$$    $$/ $$ |  $$ |$$ |  $$ |   $$ |   \n" +
             " $$$$$$/  $$/   $$/ $$/   $$/    $$/    "};
-
-    private final String[] asciiArtBACK = {"\n" +
+    private final String[] asciiArtCHECKOUT = {"" +
+            "  ______   __    __  ________   ______   __    __   ______   __    __  ________ \n" +
+            " /      \\ /  |  /  |/        | /      \\ /  |  /  | /      \\ /  |  /  |/        |\n" +
+            "/$$$$$$  |$$ |  $$ |$$$$$$$$/ /$$$$$$  |$$ | /$$/ /$$$$$$  |$$ |  $$ |$$$$$$$$/ \n" +
+            "$$ |  $$/ $$ |__$$ |$$ |__    $$ |  $$/ $$ |/$$/  $$ |  $$ |$$ |  $$ |   $$ |   \n" +
+            "$$ |      $$    $$ |$$    |   $$ |      $$  $$<   $$ |  $$ |$$ |  $$ |   $$ |   \n" +
+            "$$ |   __ $$$$$$$$ |$$$$$/    $$ |   __ $$$$$  \\  $$ |  $$ |$$ |  $$ |   $$ |   \n" +
+            "$$ \\__/  |$$ |  $$ |$$ |_____ $$ \\__/  |$$ |$$  \\ $$ \\__$$ |$$ \\__$$ |   $$ |   \n" +
+            "$$    $$/ $$ |   $$ |$$       |$$    $$/ $$ | $$  |$$    $$/ $$    $$/    $$ |   \n" +
+            " $$$$$$/  $$/    $$/ $$$$$$$$/  $$$$$$/  $$/   $$/  $$$$$$/   $$$$$$/     $$/    "};
+    private final String[] asciiArtMessage = {"" +
+            " ________  __    __   ______   __    __  __    __        __      __  ______   __    __ \n" +
+            "/        |/  |  /  | /      \\ /  \\  /  |/  |  /  |      /  \\    /  |/      \\ /  |  /  |\n" +
+            "$$$$$$$$/ $$ |  $$ |/$$$$$$  |$$  \\ $$ |$$ | /$$/       $$  \\  /$$//$$$$$$  |$$ |  $$ |\n" +
+            "   $$ |   $$ |__$$ |$$ |__$$ |$$$  \\$$ |$$ |/$$/         $$  \\/$$/ $$ |  $$ |$$ |  $$ |\n" +
+            "   $$ |   $$    $$ |$$    $$ |$$$$  $$ |$$  $$<           $$  $$/  $$ |  $$ |$$ |  $$ |\n" +
+            "   $$ |   $$$$$$$$ |$$$$$$$$ |$$ $$ $$ |$$$$$  \\           $$$$/   $$ |  $$ |$$ |  $$ |\n" +
+            "   $$ |   $$ |  $$ |$$ |  $$ |$$ |$$$$ |$$ |$$  \\           $$ |   $$ \\__$$ |$$ \\__$$ |\n" +
+            "   $$ |   $$ |  $$ |$$ |  $$ |$$ | $$$ |$$ | $$  |          $$ |   $$    $$/ $$    $$/ \n" +
+            "   $$/    $$/   $$/ $$/   $$/ $$/   $$/ $$/   $$/           $$/     $$$$$$/   $$$$$$/  "};
+    private final String[] asciiArtBACK = {"" +
             " _______    ______    ______   __    __ \n" +
             "/       \\  /      \\  /      \\ /  |  /  |\n" +
             "$$$$$$$  |/$$$$$$  |/$$$$$$  |$$ | /$$/ \n" +
@@ -90,6 +110,14 @@ public class IOHandler {
         return asciiArtCART;
     }
 
+    public String[] getAsciiArtCHECKOUT() {
+        return asciiArtCHECKOUT;
+    }
+
+    public String[] getAsciiArtMessage() {
+        return asciiArtMessage;
+    }
+
     public String[] getAsciiArtBACK() {
         return asciiArtBACK;
     }
@@ -117,7 +145,7 @@ public class IOHandler {
             }
         }
     }
-
+    // 정수 유효성 검사
     boolean isValidInteger(String selectedMenuNum,int Max) {
         try {
             // 정수 + 메뉴번호 (1 ~ listSize)
@@ -133,9 +161,7 @@ public class IOHandler {
         }
     }
 
-    public void close() throws IOException{
-        br.close();
-    }
+
 
     public String isValidAnswer(String prompt) throws IOException{
         while(true){
@@ -149,5 +175,19 @@ public class IOHandler {
                 System.out.println("입력이 올바르지 않습니다! 다시 입력해주세요!");
             }
         }
+    }
+
+    public double isValidCash(String prompt) throws IOException {
+        while (true) {
+            try {
+                double inputAmount = Double.parseDouble(inputString(prompt));
+                return inputAmount;
+            } catch (Exception e) {
+                System.out.println("입력이 올바르지 않습니다! 다시 입력해주세요!");
+            }
+        }
+    }
+    public void close() throws IOException{
+        br.close();
     }
 }
